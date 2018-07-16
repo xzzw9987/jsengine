@@ -28,7 +28,8 @@ const exec = global => {
 
 const visitor = global => ({
   VariableDeclarator: VariableDeclarator.bind(global),
-  Identifier: Identifier.bind(global)
+  Identifier: Identifier.bind(global),
+  FunctionDeclaration: FunctionDeclaration.bind(global)
 })
 
 function Identifier (path) {
@@ -44,6 +45,11 @@ function Identifier (path) {
       currentPath = currentPath.parentPath
     }
     if (variableKey) { return global[variableKey] }*/
+}
+
+function FunctionDeclaration(path) {
+  const global = this
+
 }
 
 function globalKey (uid, value) { return `${uid}.${value}` }

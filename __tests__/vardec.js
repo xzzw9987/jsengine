@@ -28,10 +28,17 @@ describe('JSEngine feature: ', () => {
     test('BinaryExpression', () => {
       const source = 'var a = 1 + "a"'
       jsEngine.execute(source)
-      console.log(jsEngine.global)
       expect(jsEngine.global['3.a']).toBe('1a')
     })
 
   })
 
+  describe('Function', () => {
+    test('Function works well', () => {
+      const source = 'function foo() {}; foo()'
+      jsEngine.execute(source)
+      expect(true).toBeTruthy()
+    })
+
+  })
 })
