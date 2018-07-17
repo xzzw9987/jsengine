@@ -10,35 +10,34 @@ describe('JSEngine feature: ', () => {
     test('Number literal', () => {
       const source = 'var a = 1'
       jsEngine.execute(source)
-      expect(jsEngine.global['0.a']).toBe(1)
+      expect(jsEngine.global[`${jsEngine.__rootUid}.a`]).toBe(1)
     })
 
     test('String literal', () => {
       const source = 'var a = "a"'
       jsEngine.execute(source)
-      expect(jsEngine.global['1.a']).toBe('a')
+      expect(jsEngine.global[`${jsEngine.__rootUid}.a`]).toBe('a')
     })
 
     test('Another variable', () => {
       const source = 'var a = 100; var b = a'
       jsEngine.execute(source)
-      expect(jsEngine.global['2.b']).toBe(100)
+      expect(jsEngine.global[`${jsEngine.__rootUid}.a`]).toBe(100)
     })
 
     test('BinaryExpression', () => {
       const source = 'var a = 1 + "a"'
       jsEngine.execute(source)
-      expect(jsEngine.global['3.a']).toBe('1a')
+      expect(jsEngine.global[`${jsEngine.__rootUid}.a`]).toBe('1a')
     })
 
   })
 
   describe('Function', () => {
     test('Function works well', () => {
-      const source = 'function foo() {}; foo()'
+      const source = 'function foo() { var b = 200 ; return 200 }; var a = foo();'
       jsEngine.execute(source)
-      expect(true).toBeTruthy()
+      expect(jsEngine.global[`${jsEngine.__rootUid}.a`]).toBe(200)
     })
-
   })
 })
